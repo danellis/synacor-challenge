@@ -278,6 +278,10 @@ class VirtualMachine:
 
         return '%s (INVALID)' % value
 
+    def string_at(self, addr):
+        length = self.memory[addr]
+        return ''.join(map(chr, self.memory[addr + 1:a + 1 + length]))
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Synacor Challenge VM')
     parser.add_argument('--trace', '-t', nargs=1, metavar='FILE', default=[None],
