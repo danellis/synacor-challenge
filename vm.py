@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, itertools, argparse
+import sys, itertools, argparse, signal
 from array import array
 
 CHARS = {
@@ -240,7 +240,11 @@ class VirtualMachine:
         sys.stdout.write(chr(char))
 
     def op_in(self, addr):
-        self.memory[addr] = ord(sys.stdin.read(1))
+        try:
+            char = sys.stdin.read(1)
+        except IOError:
+            char = sys.stdin.read(1)
+        self.memory[addr] = ord(char)
 
     def op_noop(self):
         pass
@@ -285,6 +289,13 @@ if __name__ == '__main__':
 
     vm = VirtualMachine(trace=args.trace[0], dump=args.dump[0])
     code_size = vm.load(args.code[0])
+
+    def fudge_r7(signal, frame):
+        print "Updating R7"
+        vm.registers[7] = 3
+
+    signal.signal(signal.SIGUSR1, fudge_r7)
+
     try:
         vm.execute()
     except KeyboardInterrupt:
