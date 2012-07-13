@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, itertools
+import sys, itertools, argparse
 from array import array
 
 CHARS = {
@@ -86,12 +86,13 @@ class VirtualMachine:
         21: ('noop', 0),
     }
 
-    def __init__(self, trace=False):
+    def __init__(self, trace=None, dump=None):
         self.registers = RegisterBank()
         self.memory = Memory(self.registers)
         self.stack = Stack()
         self.pc = 0
-        self.trace = trace
+        self.trace = file(trace, 'w') if trace else None
+        self.dump = dump
 
     def load(self, filename):
         code_array = array('H')
@@ -106,25 +107,28 @@ class VirtualMachine:
             while 1:
                 op_name, args = self.fetch_instruction(self.pc)
 
-                if self.trace:
+                if self.trace is not None:
                     # Print disassembly of instruction
-                    sys.stderr.write('%s: %s    ; %s\n' % (
+                    self.trace.write('%s: %s    ; %s\n' % (
                         self.pc,
                         self.disassemble_instruction(op_name, args),
                         ' '.join(map(str, self.memory.read(self.pc, 1 + len(args))))
                     ))
 
-                # Execute instruction, and update PC with the returned address
-                # or the next instruction if None is returned
                 op_fn = getattr(self, 'op_%s' % op_name)
                 self.pc += 1 + len(args)
-                op_fn(*args) or (self.pc + 1 + len(args))
+                op_fn(*args)
 
-                if self.trace:
-                    sys.stderr.write('    reg: %s\n' % ' '.join(map(str, self.registers.registers)))
-                    sys.stderr.write('    stk: %s\n' % ' '.join(map(str, self.stack.stack)))
+                if self.trace is not None:
+                    self.trace.write('    reg: %s\n' % ' '.join(map(str, self.registers.registers)))
+                    self.trace.write('    stk: %s\n' % ' '.join(map(str, self.stack.stack)))
+
         except VmHalted:
-            print "Halted"
+            return
+        except KeyboardInterrupt:
+            if self.dump is not None:
+                self.memory.memory.tofile(file(self.dump, 'wb'))
+            raise
 
     def fetch_instruction(self, addr):
         opcode = self.memory[addr]
@@ -271,6 +275,17 @@ class VirtualMachine:
         return '%s (INVALID)' % value
 
 if __name__ == '__main__':
-    vm = VirtualMachine(trace=False)
-    code_size = vm.load('challenge.bin')
-    vm.execute()
+    parser = argparse.ArgumentParser(description='Synacor Challenge VM')
+    parser.add_argument('--trace', '-t', nargs=1, metavar='FILE', default=[None],
+        help="Trace every instruction execution to FILE")
+    parser.add_argument('--dump', '-d', nargs=1, metavar='FILE', default=[None],
+        help="Dump memory to FILE on ^C")
+    parser.add_argument('code', nargs=1, metavar='CODE', help="Bytecode file to execute")
+    args = parser.parse_args()
+
+    vm = VirtualMachine(trace=args.trace[0], dump=args.dump[0])
+    code_size = vm.load(args.code[0])
+    try:
+        vm.execute()
+    except KeyboardInterrupt:
+        print "Exited"
