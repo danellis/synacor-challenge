@@ -16,6 +16,7 @@ class UndefinedOpcode(VmException): pass
 class InvalidAddress(VmException): pass
 class InvalidRegister(VmException): pass
 class InvalidValue(VmException): pass
+class BreakpointHit(VmException): pass
 
 class RegisterBank(object):
     def __init__(self):
@@ -93,6 +94,7 @@ class VirtualMachine:
         self.pc = 0
         self.trace = file(trace, 'w') if trace else None
         self.dump = dump
+        self.breakpoints = set()
 
     def load(self, filename):
         code_array = array('H')
@@ -105,30 +107,34 @@ class VirtualMachine:
     def execute(self):
         try:
             while 1:
-                op_name, args = self.fetch_instruction(self.pc)
-
-                if self.trace is not None:
-                    # Print disassembly of instruction
-                    self.trace.write('%s: %s    ; %s\n' % (
-                        self.pc,
-                        self.disassemble_instruction(op_name, args),
-                        ' '.join(map(str, self.memory.read(self.pc, 1 + len(args))))
-                    ))
-
-                op_fn = getattr(self, 'op_%s' % op_name)
-                self.pc += 1 + len(args)
-                op_fn(*args)
-
-                if self.trace is not None:
-                    self.trace.write('    reg: %s\n' % ' '.join(map(str, self.registers.registers)))
-                    self.trace.write('    stk: %s\n' % ' '.join(map(str, self.stack.stack)))
-
+                self.step()
+                if self.pc in self.breakpoints:
+                    raise BreakpointHit
         except VmHalted:
             return
         except KeyboardInterrupt:
             if self.dump is not None:
                 self.memory.memory.tofile(file(self.dump, 'wb'))
             raise
+
+    def step(self):
+        op_name, args = self.fetch_instruction(self.pc)
+
+        if self.trace is not None:
+            # Print disassembly of instruction
+            self.trace.write('%s: %s    ; %s\n' % (
+                self.pc,
+                self.disassemble_instruction(op_name, args),
+                ' '.join(map(str, self.memory.read(self.pc, 1 + len(args))))
+            ))
+
+        op_fn = getattr(self, 'op_%s' % op_name)
+        self.pc += 1 + len(args)
+        op_fn(*args)
+
+        if self.trace is not None:
+            self.trace.write('    reg: %s\n' % ' '.join(map(str, self.registers.registers)))
+            self.trace.write('    stk: %s\n' % ' '.join(map(str, self.stack.stack)))
 
     def fetch_instruction(self, addr):
         opcode = self.memory[addr]
@@ -277,10 +283,6 @@ class VirtualMachine:
             return 'R%s' % (value - 32768)
 
         return '%s (INVALID)' % value
-
-    def string_at(self, addr):
-        length = self.memory[addr]
-        return ''.join(map(chr, self.memory[addr + 1:a + 1 + length]))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Synacor Challenge VM')
