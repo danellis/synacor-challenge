@@ -1,7 +1,18 @@
 #!/usr/bin/python
 from cmd import Cmd
 import argparse, shlex
-from vm import VirtualMachine, BreakpointHit, VmHalted
+from vm import VirtualMachine, VmHalted, UndefinedOpcode
+
+CHARS = {
+    0: 'NUL', 1: 'SOH', 2: 'STX', 3: 'ETX', 4: 'EOT', 5: 'ENQ', 6: 'ACK', 7: 'BEL',
+    8: 'BS', 9: 'HT', 10: 'NL', 11: 'VT', 12: 'NP', 13: 'CR', 14: 'SO', 15: 'SI',
+    16: 'DLE', 17: 'DC1', 18: 'DC2', 19: 'DC3', 20: 'DC4', 21: 'NAK', 22: 'SYN', 23: 'ETB',
+    24: 'CAN', 25: 'EM', 26: 'SUB', 27: 'ESC', 28: 'FS', 29: 'GS', 30: 'RS', 31: 'US',
+    32: 'SP'
+}
+
+class DebugException(Exception): pass
+class BreakpointHit(DebugException): pass
 
 class DebugShell(Cmd):
     prompt = 'VM> '
@@ -9,6 +20,8 @@ class DebugShell(Cmd):
     def __init__(self):
         Cmd.__init__(self)
         self.vm = VirtualMachine()
+        self.trace_file = None
+        self.breakpoints = set()
 
     def do_load(self, arg):
         """load <filename>
@@ -16,13 +29,15 @@ class DebugShell(Cmd):
         args = shlex.split(arg)
         code_size = self.vm.load(args[0])
         print "Loaded %s words" % code_size
+        self.vm.pc = 0
+        self.print_current_instruction()
 
     def do_pc(self, arg):
         """pc <addr>
         Set the program counter to address <addr>"""
         args = shlex.split(arg)
         self.vm.pc = int(args[0])
-        print "PC set to %s" % self.vm.pc
+        self.print_current_instruction()
 
     def do_reg(self, arg):
         """reg [<n> ...]
@@ -67,6 +82,7 @@ class DebugShell(Cmd):
         """step
         Execute only the next instruction"""
         self.vm.step()
+        self.print_current_instruction()
 
     def do_break(self, arg):
         """break [<addr>]
@@ -74,11 +90,11 @@ class DebugShell(Cmd):
         args = shlex.split(arg)
         if args:
             addr = int(args[0])
-            self.vm.breakpoints.add(addr)
+            self.breakpoints.add(addr)
             print "Breakpoint set at %s" % addr
         else:
             print "Breakpoints:"
-            print '\n'.join(map(str, self.vm.breakpoints))
+            print '\n'.join(['%s: %s' % (a, self.disassemble_one(a)) for a in self.breakpoints])
 
     def do_unbreak(self, arg):
         """unbreak [<addr>]
@@ -86,39 +102,121 @@ class DebugShell(Cmd):
         args = shlex.split(arg)
         if args:
             addr = int(args[0])
-            self.vm.breakpoints.remove(addr)
+            self.breakpoints.remove(addr)
             print "Breakpoint removed from %s" % addr
         else:
-            self.vm.breakpoints.clear()
+            self.breakpoints.clear()
             print "All breakpoints removed"
 
     def do_run(self, arg):
         """run
         Execute from current PC"""
         try:
-            self.vm.execute()
+            while 1:
+                if self.trace_file is not None:
+                    self.trace()
+                self.vm.step()
+                if self.vm.pc in self.breakpoints:
+                    raise BreakpointHit
         except KeyboardInterrupt:
             print "Stopped by ^C -- state may be weird"
+            self.print_current_instruction()
         except BreakpointHit:
             print "Breakpoint hit at %s" % self.vm.pc
+            self.print_current_instruction()
         except VmHalted:
             print "Halt"
+
+    def do_dis(self, arg):
+        """dis <addr> [<count>]
+        Disassemble one or <count> instructions starting at <addr>"""
+        args = shlex.split(arg)
+        addr = int(args[0])
+        count = int(args[1]) if len(args) > 1 else 1
+        self.disassemble(addr, count)
+
+    def do_ss(self, arg):
+        """ss <string>
+        Search for <string> in memory"""
+        args = shlex.split(arg)
+        needle = ' '.join(args)
+        # FIXME: This is probably horrendously inefficient
+        mem = ''.join(map(lambda c: chr(c if c < 256 else 0), self.vm.memory.memory))
+        index = mem.find(needle)
+        print index
+
+    def do_trace(self, arg):
+        """ss off|<filename>
+        Turn off tracing, or begin tracing to <filename>"""
+        args = shlex.split(arg)
+        filename = args[0]
+        if self.trace_file is not None:
+            self.trace_file.close()
+        if filename == 'off':
+            self.trace_file = None
+            print "Tracing off"
+        else:
+            self.trace_file = file(filename, 'w')
+            print "Tracing to file %s" % filename
 
     def do_EOF(self, arg):
         print
         return True
 
+    def print_current_instruction(self):
+        print '%s: %s' % (self.vm.pc, self.disassemble_one(self.vm.pc))
+
+    def trace(self):
+        self.trace_file.write('%s: %s\n' % (self.vm.pc, self.disassemble_one(self.vm.pc)))
+
+    def disassemble(self, addr, count):
+        while count:
+            try:
+                op_name, args = self.vm.fetch_instruction(addr)
+                print '%s: %s' % (addr, self.disassemble_instruction(op_name, args))
+                addr += 1 + len(args)
+            except UndefinedOpcode:
+                print '%s: ???' % addr
+                addr += 1
+            count -= 1
+
+    def disassemble_one(self, addr):
+        return self.disassemble_instruction(*self.vm.fetch_instruction(addr))
+
+    def disassemble_instruction(self, op_name, args):
+        return '%s %s' % (
+            op_name,
+            ', '.join(map(self.disassemble_operand, args))
+        )
+
+    def disassemble_operand(self, value):
+        if 0 <= value <= 32767:
+            if value < 128:
+                return '%s (%s)' % (value, CHARS.get(value, chr(value)))
+            else:
+                return str(value)
+
+        if 32768 <= value <= 32775:
+            return 'R%s' % (value - 32768)
+
+        return '%s (INVALID)' % value
+
 if __name__ == '__main__':
-    # parser = argparse.ArgumentParser(description='Synacor Challenge VM')
-    # parser.add_argument('--trace', '-t', nargs=1, metavar='FILE', default=[None],
-    #     help="Trace every instruction execution to FILE")
-    # parser.add_argument('--dump', '-d', nargs=1, metavar='FILE', default=[None],
-    #     help="Dump memory to FILE on ^C")
-    # parser.add_argument('code', nargs=1, metavar='CODE', help="Bytecode file to execute")
-    # args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Synacor Challenge VM debugger')
+    parser.add_argument('--init', '-i', nargs=1, metavar='FILE', default=[None],
+        help="Execute commands from FILE before starting shell")
+    parser.add_argument('code', nargs='?', metavar='CODE', default=None,
+        help="Bytecode file to load")
+    args = parser.parse_args()
 
     shell = DebugShell()
-    shell.cmdloop("Synacor Challenge VM debugging shell")
+    print "Synacor Challenge VM debugging shell"
+    if args.code:
+        shell.onecmd('load %s' % args.code)
+    if args.init[0]:
+        for line in file(args.init[0], 'r'):
+            shell.onecmd(line)
+    shell.cmdloop()
 
     # def fudge_r7(signal, frame):
     #     print "Updating R7"
