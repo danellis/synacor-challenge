@@ -83,7 +83,9 @@ class VirtualMachine:
         self.memory = Memory(self.registers)
         self.stack = Stack()
         self.pc = 0
+        self.call_stack = []
         self.out_locations = {}
+        self.calls = {}
 
     def load(self, filename):
         code_array = array('H')
@@ -205,10 +207,14 @@ class VirtualMachine:
 
     def op_call(self, addr):
         addr = self.value(addr)
+        self.call_stack.append(addr)
+        calls = self.calls.setdefault(addr, [])
+        calls.append(self.pc - 2)
         self.stack.push(self.pc)
         self.pc = addr
 
     def op_ret(self):
+        self.call_stack.pop()
         self.pc = self.stack.pop()
 
     def op_out(self, char):

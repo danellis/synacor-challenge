@@ -176,12 +176,28 @@ class DebugShell(Cmd):
         with file(filename, 'w') as f:
             f.write(s)
 
+    def do_calls(self, arg):
+        """calls
+        Show the addresses in the current call stack"""
+        if len(self.vm.call_stack):
+            print ' '.join(map(str, self.vm.call_stack))
+        else:
+            print "Empty call stack"
 
     def do_out_locations(self, arg):
         locs = self.vm.out_locations.items()
         sorted_locs = sorted(locs, key=lambda x: x[0])
         for loc, chars in sorted_locs:
             print '%s: %s' % (loc, ''.join(chars))
+
+    def do_write_calls(self, arg):
+        args = shlex.split(arg)
+        filename = args[0]
+        with file(filename, 'w') as f:
+            for dest, srcs in self.vm.calls.iteritems():
+                for src in srcs:
+                    f.write('%s, %s\n' % (dest, src))
+
     def do_EOF(self, arg):
         print
         return True
