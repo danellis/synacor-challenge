@@ -230,7 +230,12 @@ class DebugShell(Cmd):
         print '%s: %s' % (self.vm.pc, self.disassemble_one(self.vm.pc))
 
     def trace(self):
-        self.trace_file.write('%s: %s\n' % (self.vm.pc, self.disassemble_one(self.vm.pc)))
+        self.trace_file.write('%s%s: %s (%s)\n' % (
+            '  ' * len(self.vm.call_stack),
+            self.vm.pc,
+            self.disassemble_one(self.vm.pc),
+            ', '.join(['R%s=%s' % (r, self.vm.registers[r]) for r in range(0, 8)])
+        ))
 
     def disassemble(self, addr, count):
         while count:
