@@ -127,6 +127,30 @@ class DebugShell(Cmd):
         except VmHalted:
             print "Halt"
 
+    def do_next(self, arg):
+        """next
+        Execute next instruction without entering calls"""
+        depth = len(self.vm.call_stack)
+        try:
+            while 1:
+                if self.trace_file is not None:
+                    self.trace()
+                self.vm.step()
+                if self.vm.pc in self.breakpoints:
+                    raise BreakpointHit
+
+                if depth == len(self.vm.call_stack):
+                    self.print_current_instruction()
+                    return
+        except KeyboardInterrupt:
+            print "Stopped by ^C -- state may be weird"
+            self.print_current_instruction()
+        except BreakpointHit:
+            print "Breakpoint hit at %s" % self.vm.pc
+            self.print_current_instruction()
+        except VmHalted:
+            print "Halt"
+
     def do_dis(self, arg):
         """dis <addr> [<count>]
         Disassemble one or <count> instructions starting at <addr>"""
