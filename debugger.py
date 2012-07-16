@@ -159,6 +159,13 @@ class DebugShell(Cmd):
             self.trace_file = file(filename, 'w')
             print "Tracing to file %s" % filename
 
+    def do_dump(self, arg):
+        """dump <filename>
+        Dump memory contents into <filename>"""
+        args = shlex.split(arg)
+        filename = args[0]
+        self.vm.memory.memory.tofile(file(filename, 'wb'))
+
 
     def do_out_locations(self, arg):
         locs = self.vm.out_locations.items()
