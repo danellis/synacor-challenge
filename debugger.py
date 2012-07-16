@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from cmd import Cmd
-import argparse, shlex
+import argparse, shlex, string
 from vm import VirtualMachine, VmHalted, UndefinedOpcode
 
 CHARS = {
@@ -165,6 +165,16 @@ class DebugShell(Cmd):
         args = shlex.split(arg)
         filename = args[0]
         self.vm.memory.memory.tofile(file(filename, 'wb'))
+
+    def do_sdump(self, arg):
+        """sdump <filename>
+        Dump the printable memory contents into <filename>"""
+        args = shlex.split(arg)
+        filename = args[0]
+        printable = set(map(ord, string.printable))
+        s = ''.join([chr(c) for c in self.vm.memory.memory if c in printable])
+        with file(filename, 'w') as f:
+            f.write(s)
 
 
     def do_out_locations(self, arg):
