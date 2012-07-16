@@ -159,6 +159,12 @@ class DebugShell(Cmd):
             self.trace_file = file(filename, 'w')
             print "Tracing to file %s" % filename
 
+
+    def do_out_locations(self, arg):
+        locs = self.vm.out_locations.items()
+        sorted_locs = sorted(locs, key=lambda x: x[0])
+        for loc, chars in sorted_locs:
+            print '%s: %s' % (loc, ''.join(chars))
     def do_EOF(self, arg):
         print
         return True

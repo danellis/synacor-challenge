@@ -83,6 +83,7 @@ class VirtualMachine:
         self.memory = Memory(self.registers)
         self.stack = Stack()
         self.pc = 0
+        self.out_locations = {}
 
     def load(self, filename):
         code_array = array('H')
@@ -211,8 +212,11 @@ class VirtualMachine:
         self.pc = self.stack.pop()
 
     def op_out(self, char):
-        char = self.value(char)
-        sys.stdout.write(chr(char))
+        char = chr(self.value(char))
+        addr = self.pc - 2
+        chars = self.out_locations.setdefault(addr, [])
+        chars.append(char)
+        sys.stdout.write(char)
 
     def op_in(self, addr):
         try:
