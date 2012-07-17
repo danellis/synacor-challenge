@@ -1,7 +1,9 @@
 1550 and 1560 are the most common 'out' locations
 break at 1838 to read whole line
 2972 calls R1 (3590) for 'use'
-1480 = print?
+1480 = print encrypted string (key = 25978)
+  R0 = pointer to <length> <enc char 1> ...
+  R2 = xor key
 Miscalibration detection probably starts at 5494 (line 4502)
 Called from:
 5511: call 6049    ; 17 6049
@@ -10,6 +12,8 @@ Called from:
 Decryption routine at 2147
 
 5473 is R7 == 0 test (line 612)
+
+1863 print a code
 
 6049: jt R0, 6057    ; 7 32768 6057
 6052: add R0, R1, 1 (SOH)    ; 9 32768 32769 1

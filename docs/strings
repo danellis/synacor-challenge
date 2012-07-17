@@ -1,0 +1,203 @@
+Welcome to the Synacor OSCON 2012 Challenge!
+Please record your progress by putting codes like
+this one into the challenge website: hTrSoQLZpQWi
+
+Executing self-test...
+
+jmp fails
+jmp lands -2
+jmp lands -1
+jmp lands +1
+jmp lands +2
+	no add op
+no eq op
+**no bitwise or
+			
+	*6
+cF
+		tTtTwmem opwrite fail
+	
+							,	no jt/jf
+nonzero reg
+no set op
+no gt op
+no stack
+no bitwise and
+no bitwise not
+no rmem op
+no wmem op
+no call op
+no modulo math during add or mult
+not hitchhiking
+no mult op
+no mod op
+					
+			
+	
+					
+					
+
+
+		
+
+
+		0
+
+	0		
+				
+	
+		a 
+
+ 		
+		 			
+	== 	 ==
+			
+		
+There areis  exits:
+																						 @				
+			.
+
+			
+
+			
+
+
+	
+																											0										
+
+		
+
+		
+										_									
+					- 
+												Test string#self-test complete, all tests pass
+completeFcOmNjnuEEnl	FoothillsYou find yourself standing at the base of an enormous mountain.  At its base to the north, there is a massive doorway.  A sign nearby reads "Keep out!  Definitely no treasure within!"doorwaysouth	FoothillsJAs you begin to leave, you feel the urge for adventure pulling you back...north	Dark caveThis seems to be the mouth of a deep cave.  As you peer north into the darkness, you think you hear the echoes of bats deeper within.northsouth	Dark cave[The cave is somewhat narrow here, and the light from the doorway to the south is quite dim.northsouth	Dark caveThe cave acoustics dramatically change as you find yourself at a legde above a large chasm.  There is barely enough light here to notice a rope bridge leading out into the dark emptiness.bridgesouthRope bridgeyThis rope bridge creaks as you walk along it.  You aren't sure how old it is, or whether it can even support your weight.continuebackFalling through the air!As you continue along the bridge, it snaps!  You try to grab the bridge, but it evades your grasp in the darkness.  You are plummeting quickly downward into the chasm...downMoss cavernYou are standing in a large cavern full of bioluminescent moss.  It must have broken your fall!  The cavern extends to the east and west; at the west end, you think you see a passage leading out of the cavern.westeastMoss cavern`You are standing in a large cavern full of bioluminescent moss.  The cavern extends to the west.westMoss cavernYou are standing in a large cavern full of bioluminescent moss.  The cavern extends to the east.  There is a crevise in the rocks which opens into a passage.eastpassagePassageYou are in a crevise on the west wall of the moss cavern.  A dark passage leads further west.  There is a ladder here which leads down into a smaller, moss-filled cavern below.cavernladderdarknessPassage9It is pitch black.  You are likely to be eaten by a grue.KYou feel that your light source is more than sufficient to keep grues away.continuebackTwisty passages{You are in a maze of twisty little passages, all dimly lit by more bioluminescent moss.  There is a ladder here leading up.laddernorthsoutheastwestTwisty passages7You are in a twisty maze of little passages, all alike.northsouthwestTwisty passages7You are in a maze of little twisty passages, all alike.northsoutheastTwisty passages|You are in a maze of alike little passages, all twisty.
+
+The passage to the east looks very dark; you think you hear a Grue.northsouthwesteastTwisty passages7You are in a little maze of twisty passages, all alike.northsoutheastTwisty passagesYou are in a twisty alike of little passages, all maze.
+
+The east passage appears very dark; you feel likely to be eaten by a Grue.northsouthwesteastTwisty passages7You are in a maze of alike twisty passages, all little.northeastsouthTwisty passages7You are in a maze of twisty little passages, all alike.westTwisty passages7You are in a maze of twisty little passages, all alike.westTwisty passages7You are in a twisty maze of little passages, all alike.northsouthDark passagerYou are in a narrow passage.  There is darkness to the west, but you can barely see a glowing opening to the east.westeastDark passage"You are in a dark, narrow passage.eastwestDark passage"You are in a dark, narrow passage.eastwestDark passagedYou are in a dark, narrow passage.  To the west, you spot some vegetation where the passage expands.eastwestRuinsYou stand in a large cavern with a huge ruin to the north, overgrown by plant life.  There is a large stone archway to the north acting as the doorway to the ruined complex.  A crevice in the rock to the east leads to an alarmingly dark passageway.eastnorthRuinsYou are in the once-opulent foyer of a massive ruined complex.  There is a door to the south leading to the overgrowth outside and stairs to the north which lead into a larger hall.northsouthRuinsYou stand in the massive central hall of these ruins.  The walls are crumbling, and vegetation has clearly taken over.  Rooms are attached in all directions.  There is a strange monument in the center of the hall with circular slots and unusual symbols.  It reads:
+
+9 + 2 * 5^2 + 7^3 - 3 = 399northsoutheastwestRuinsBecause it has been so well-protected, this room hardly shows signs of decay.  The walls are covered in elaborate murals and decorated with precious metals and stones.southRuinsYou stand in what seems to have once been a dining hall; broken tables and pottery are scattered everywhere.  A staircase here leads down.downwestRuinszThis seems to be a kitchen; there are brick stoves and shelves along the wall.  Everything here has fallen into disrepair.upRuinsYou find yourself in what was once the living quarters for the complex.  Many smaller rooms which once had walls to divide them now lay in disarray.  There is a staircase up here.upeastRuinsThis was long ago a lavish throne room.  Dried-up fountains and crumbling statues line the walls, and the carved stone throne in the center of the room is falling apart.downSynacor HeadquartersYou stand in the lobby of what appears to be a really fun place to work!  Sadly, there doesn't seem to be anyone around at the moment, so you make a note to call them later.  The bookshelf here looks like it might have something interesting in it, though.outsideSynacor HeadquartersIt's a warm, sunny day!  While the breeze from Lake Erie is certainly refreshing, you don't see anything here that will help you with your quest.insideBeachThis is a sandy beach in a cove on some tropical island.  It is raining.  The ocean is to your south, and heavy foliage is to your north; the beach extends west and east.westeastnorthBeachThis is a sandy beach in a cove on some tropical island.  It is raining.  To your west is an embankment of the cove which looks too steep to climb.  The beach extends to the east, and there is dense foliage to the north.  The ocean to the south seems uninviting.eastnorthBeachThis is a sandy beach in a cove on some tropical island.  It is raining.  The steep cove embankment to your east blocks your path, and the ocean waters here look unsafe.  The beach extends to the west, and there is dense foliage to the north.westnorthTropical IslandThe large trees here seem to be protecting you from the rain.  As you push through the undergrowth, you can hear birds chirping overhead.  There is a steep rock face to your west blocking your path.northsoutheastTropical IslandzThe east embankment of the cove towers over you.  It produces a small waterfall here which cascades excitedly into a pool.northsouthwestTropical IslandThe embankment of the cove come toegher here to your east and west.  Between these tall rock faces, there is a narrow, overgrown path leading north.  You hear waves lapping up on a beach through the dense vegetation to your south.northsouthTropical IslandYou are on a narrow path between two steep rock faces which look like they have been here for thousands of years.  Rain trickles down through the vegetation and moss, and through the leaves you can occasionally see a sliver of light hundreds of feet above you where the rock walls end.northsouthTropical IslandThe narrow path slopes downward to the north and leads to the mouth of a small cave.  A sign nearby reads "Treasure Vault Access", but different handwriting has crossed this out and written "Lair of Horrible Monster!  All non-pirates keep out!".northsouthTropical CaveYou stand at the entrance to a natural cave which looks like it hasn't been visited in quite some time.  Light pours in through the opening to the south, while fireflies light the path further into the cave to the north.northsouthTropical CavezFireflies slowly drift around you and light the tunnel, which seems to get brighter to the south, but dimmer to the north.northsouthTropical CaveThe cave is a little wider here.  You find the cobweb-encrusted remains of a small camp, and although you don't suspect the broken pieces of tables and chairs will prove useful to your quest, the fireflies seem to like using the debris as a shelter.  A passageway leads north and south, and there is an alcove to the east.northsoutheastTropical Cave AlcoveAt the back of this alcove, there is a small table, a chair, and a broken lantern.  It looks like this space was used much more recently than the camp to the west.westTropical CavehThis tunnel slopes deeper underground to the north, but the fireflies are all around to light your path.northsouth
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '*' symbol.eastsouth
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '8'.eastsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '-' symbol.eastsouthwest
+Vault DoorYou stand before the door to the vault; it has a large '30' carved into it.  Affixed to the wall near the door, there is a running hourglass which never seems to run out of sand.
+
+The floor of this room is a large mosaic depicting the number '1'.southwestvault
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '4'.northeastsouth
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '*' symbol.northeastsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '11'.northeastsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '*' symbol.northsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '+' symbol.northeastsouth
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '4'.northeastsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '-' symbol.northeastsouthwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '18'.northsouthwestVault AntechamberYou are in the antechamber to a grid of rooms that control the door to the vault.  You notice the number '22' is carved into the orb's pedestal.northeastsouth
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '-' symbol.northeastwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting the number '9'.northeastwest
+Vault LockYou are in a grid of rooms that control the door to the vault.
+
+The floor of this room is a large mosaic depicting a '*' symbol.northwestVaultThis vault contains incredible riches!  Piles of gold and platinum coins surround you, and the walls are adorned with topazes, rubies, sapphires, emeralds, opals, dilithium crystals, elerium-115, and unobtainium.leaveFumbling around in the darknesscWithout a source of light, you have become hopelessly lost and are fumbling around in the darkness.forwardbackFumbling around in the darkness^You can't seem to find your way.  However, you do think you hear low growling in the distance.runinvestigatePanicked and lostIThe growling is getting louder.  Did I mention there are Grues down here?runwaithideeatentabletThe tablet seems appropriate for use as a writing surface but is unfortunately blank.  Perhaps you should USE it as a writing surface...empty lantern{The lantern seems to have quite a bit of wear but appears otherwise functional.  It is, however, sad that it is out of oil.lanternsThe lantern seems to have quite a bit of wear but appears otherwise functional.  It is off but happily full of oil.lit lanternWThe lantern seems to have quite a bit of wear.  It is lit and producing a bright light.can-This can is full of high-quality lantern oil.red coin?This coin is made of a red metal.  It has two dots on one side.corroded coin?This coin is somewhat corroded.  It has a triangle on one side.
+shiny coinGThis coin is somehow still quite shiny.  It has a pentagon on one side.concave coinWThis coin is slightly rounded, almost like a tiny bowl.  It has seven dots on one side.	blue coinAThis coin is made of a blue metal.  It has nine dots on one side.
+teleporterHThis small device has a button on it and reads "teleporter" on the side.business card@This business card has "synacor.com" printed in red on one side.orb=This is a clear glass sphere about the size of a tennis ball.mirrorvThis is a rather mundane hand-held mirror from the otherwise magnificent vault room.  What USE could it possibly have?strange bookThe cover of this book subtly swirls with colors.  It is titled "A Brief Introduction to Interdimensional Physics".  It reads:
+
+Recent advances in interdimensional physics have produced fascinating
+predictions about the fundamentals of our universe!  For example,
+interdimensional physics seems to predict that the universe is, at its root, a
+purely mathematical construct, and that all events are caused by the
+interactions between eight pockets of energy called "registers".
+Furthermore, it seems that while the lower registers primarily control mundane
+things like sound and light, the highest register (the so-called "eighth
+register") is used to control interdimensional events such as teleportation.
+
+A hypothetical such teleportation device would need to have have exactly two
+destinations.  One destination would be used when the eighth register is at its
+minimum energy level - this would be the default operation assuming the user
+has no way to control the eighth register.  In this situation, the teleporter
+should send the user to a preconfigured safe location as a default.
+
+The second destination, however, is predicted to require a very specific
+energy level in the eighth register.  The teleporter must take great care to
+confirm that this energy level is exactly correct before teleporting its user!
+If it is even slightly off, the user would (probably) arrive at the correct
+location, but would experience anomalies in the fabric of reality itself - this
+is, of course, not recommended.  Any teleporter would need to test the energy
+level in the eighth register and abort teleportation if it is not exactly
+correct.
+
+This required precision implies that the confirmation mechanism would be very
+computationally expensive.  While this would likely not be an issue for large-
+scale teleporters, a hypothetical hand-held teleporter would take billions of
+years to compute the result and confirm that the eighth register is correct.
+
+If you find yourself trapped in an alternate dimension with nothing but a
+hand-held teleporter, you will need to extract the confirmation algorithm,
+reimplement it on more powerful hardware, and optimize it.  This should, at the
+very least, allow you to determine the value of the eighth register which would
+have been accepted by the teleporter's confirmation mechanism.
+
+Then, set the eighth register to this value, activate the teleporter, and
+bypass the confirmation mechanism.  If the eighth register is set correctly, no
+anomalies should be experienced, but beware - if it is set incorrectly, the
+now-bypassed confirmation mechanism will not protect you!
+
+Of course, since teleportation is impossible, this is all totally ridiculous.journalFireflies were using this dusty old journal as a resting spot until you scared them off.  It reads:
+
+Day 1: We have reached what seems to be the final in a series of puzzles guarding an ancient treasure.  I suspect most adventurers give up long before this point, but we're so close!  We must press on!
+
+Day 1: P.S.: It's a good thing the island is tropical.  We should have food for weeks!
+
+Day 2: The vault appears to be sealed by a mysterious force - the door won't budge an inch.  We don't have the resources to blow it open, and I wouldn't risk damaging the contents even if we did.  We'll have to figure out the lock mechanism.
+
+Day 3: The door to the vault has a number carved into it.  Each room leading up to the vault has more numbers or symbols embedded in mosaics in the floors.  We even found a strange glass orb in the antechamber on a pedestal itself labeled with a number.  What could they mean?
+
+Day 5: We finally built up the courage to touch the strange orb in the antechamber.  It flashes colors as we carry it from room to room, and sometimes the symbols in the rooms flash colors as well.  It simply evaporates if we try to leave with it, but another appears on the pedestal in the antechamber shortly thereafter.  It also seems to do this even when we return with it to the antechamber from the other rooms.
+
+Day 8: When the orb is carried to the vault door, the numbers on the door flash black, and then the orb evaporates.  Did we do something wrong?  Doesn't the door like us?  We also found a small hourglass near the door, endlessly running.  Is it waiting for something?
+
+Day 13: Some of my crew swear the orb actually gets heaver or lighter as they walk around with it.  Is that even possible?  They say that if they walk through certain rooms repeatedly, they feel it getting lighter and lighter, but it eventually just evaporates and a new one appears as usual.
+
+Day 21: Now I can feel the orb changing weight as I walk around.  It depends on the area - the change is very subtle in some places, but certainly more noticeable in others, especially when I walk into a room with a larger number or out of a room marked '*'.  Perhaps we can actually control the weight of this mysterious orb?
+
+Day 34: One of the crewmembers was wandering the rooms today and claimed that the numbers on the door flashed white as he approached!  He said the door still didn't open, but he noticed that the hourglass had run out and flashed black.  When we went to check on it, it was still running like it always does.  Perhaps he is going mad?  If not, which do we need to appease: the door or the hourglass?  Both?
+
+Day 55: The fireflies are getting suspicious.  One of them looked at me funny today and then flew off.  I think I saw another one blinking a little faster than usual.  Or was it a little slower?  We are getting better at controlling the weight of the orb, and we think that's what the numbers are all about.  The orb starts at the weight labeled on the pedestal, and goes down as we leave a room marked '-', up as we leave a room marked '+', and up even more as we leave a room marked '*'.  Entering rooms with larger numbers has a greater effect.
+
+Day 89: Every once in a great while, one of the crewmembers has the same story: that the door flashes white, the hourglass had already run out, it flashes black, and the orb evaporates.  Are we too slow?  We can't seem to find a way to make the orb's weight match what the door wants before the hourglass runs out.  If only we could find a shorter route through the rooms...
+
+Day 144: We are abandoning the mission.  None of us can work out the solution to the puzzle.  I will leave this journal here to help future adventurers, though I am not sure what help it will give.  Good luck!4abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZdbqpwuiolxv8WTYUIOAHXVMgolookhelpinvtakedropuseuse
+teleporterrinngreenredyellow?As you enter the room, the symbol on the floor briefly flashes !.  The orb begins subtly glowing /As you enter the room, the orb briefly flashes @.  The number on the floor vibrates strangely beneath your feet.  The orb seems to get heavier.  The orb seems to get lighter.  The orb shatters!
+
+ As you approach the vault door, +the number on the vault door flashes black.)  The orb evaporates out of your hands.
+
++the number on the vault door flashes white!c  The hourglass has already run out.  It flashes black and flips over, restarting the flow of sand.  The hourglass is still running!  It flashes white!  You hear a click from the vault door.  The orb evaporates out of hour hands.
+
+As you leaveenterV the room, the orb evaporates out of your hands!  It rematerializes on its pedestal.
+
+The vault door is sealed.
+0	1	""!>+38:*BB0uYg

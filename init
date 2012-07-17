@@ -1,0 +1,4 @@
+poke 5511 21
+poke 5512 21
+break 5473
+run
