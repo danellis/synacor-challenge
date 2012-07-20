@@ -15,6 +15,15 @@ Decryption routine at 2147
 
 1863 print a code
 
+R0: 4
+R1: 1
+R2: 3
+R3: 10
+R4: 101
+R5: 0
+R6: 0
+R7: 12345
+
 6049: jt R0, 6057    ; 7 32768 6057
 6052: add R0, R1, 1 (SOH)    ; 9 32768 32769 1
 6056: ret     ; 18
@@ -32,11 +41,15 @@ Decryption routine at 2147
 6087: call 6049    ; 17 6049
 6089: ret     ; 18
 
-r1 = r7
+r0 = 4
+r1 = 1
+r7 = 12345
 def code_6049():
     if r0 == 0:
+        r0 = r1 + 1
         return
 
+    # When r1 reaches zero, decrement r0, reset r1 to the magic number and recurse
     if r1 == 0:
         r0 -= 1
         r1 = r7
