@@ -208,6 +208,14 @@ class DebugShell(Cmd):
         else:
             print "Empty call stack"
 
+    def do_stack(self, arg):
+        """stack
+        Show the contents of the stack"""
+        if len(self.vm.stack.stack) > 0:
+            print ' '.join(map(str, self.vm.stack.stack))
+        else:
+            print "Empty stack"
+
     def do_out_locations(self, arg):
         locs = self.vm.out_locations.items()
         sorted_locs = sorted(locs, key=lambda x: x[0])
@@ -285,9 +293,3 @@ if __name__ == '__main__':
         for line in file(args.init[0], 'r'):
             shell.onecmd(line)
     shell.cmdloop()
-
-    # def fudge_r7(signal, frame):
-    #     print "Updating R7"
-    #     vm.registers[7] = 3
-
-    # signal.signal(signal.SIGUSR1, fudge_r7)
