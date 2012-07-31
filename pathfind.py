@@ -11,10 +11,6 @@ grid = [
   [None, '-', 9, '*']
 ]
 
-class OffTheEdge: pass
-class OrbGone: pass
-class InvalidPath: pass
-
 def random_path(max_length):
 	path = []
 	x, y = 0, 3
